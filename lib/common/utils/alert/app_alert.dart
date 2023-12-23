@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:target_sistemas_prova_flutter/common/theme/theme_global.dart';
 
-import '../../theme/app_colors.dart';
-
 enum AlertType { ok, yesNo }
 
 class AppAlert extends StatelessWidget {

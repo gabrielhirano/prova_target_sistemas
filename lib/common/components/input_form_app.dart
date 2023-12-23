@@ -3,20 +3,28 @@ import 'package:flutter/services.dart';
 import 'package:target_sistemas_prova_flutter/common/theme/theme_global.dart';
 
 class InputFormApp extends StatefulWidget {
-  final String label;
-  final Widget prefixIcon;
+  final String? label;
+
+  final Widget? prefixIcon;
   final TextEditingController controller;
+  final FocusNode? focusNode;
   final String? Function(String?) validator;
-  final bool obscureText;
+  final bool? obscureText;
+  final bool? autoFocus;
+  final InputDecoration? inputDecoration;
   final List<TextInputFormatter>? inputFormatters;
+
   const InputFormApp({
     Key? key,
-    required this.label,
-    required this.prefixIcon,
+    this.label,
+    this.prefixIcon,
     required this.controller,
     required this.validator,
     this.obscureText = false,
+    this.autoFocus = false,
     this.inputFormatters,
+    this.inputDecoration,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -29,37 +37,40 @@ class _InputFormAppState extends State<InputFormApp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Text(
-              widget.label,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.w300),
-            )),
+        Visibility(
+          visible: widget.label != null,
+          child: Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: Text(
+                widget.label ?? '',
+                style: TextStyle(
+                    color: appColors.white, fontWeight: FontWeight.w300),
+              )),
+        ),
         const SizedBox(height: 4),
         Container(
-          height: 80,
-          // color: Colors.red,
           child: TextFormField(
-            // cursorHeight: 100,
+            focusNode: widget.focusNode,
             inputFormatters: widget.inputFormatters,
-            obscureText: widget.obscureText,
+            obscureText: widget.obscureText == true,
             controller: widget.controller,
             validator: widget.validator,
             style: const TextStyle(fontSize: 14),
-            decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
-                border: const OutlineInputBorder(),
-                prefixIcon: widget.prefixIcon,
-                prefixIconColor: Colors.black,
-                prefixIconConstraints:
-                    const BoxConstraints(maxWidth: 80, minWidth: 40),
-                filled: true,
-                fillColor: appColors.white,
-                errorStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                )),
+            decoration: widget.inputDecoration ??
+                InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+                  border: const OutlineInputBorder(),
+                  prefixIcon: widget.prefixIcon,
+                  prefixIconColor: appColors.black,
+                  prefixIconConstraints:
+                      const BoxConstraints(maxWidth: 80, minWidth: 40),
+                  filled: true,
+                  fillColor: appColors.white,
+                  errorStyle: TextStyle(
+                    color: appColors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
           ),
         ),
       ],

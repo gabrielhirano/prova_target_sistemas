@@ -24,7 +24,6 @@ mixin DependencyInjection {
 
     // Utils
     getIt.registerLazySingleton<IAppColors>(() => AppColors());
-    getIt.registerLazySingleton<AppDialog>(() => AppDialogImpl(getIt()));
 
     Future.wait([
       AuthenticationInjection.inject(getIt),

@@ -1,35 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:target_sistemas_prova_flutter/common/service/navigate_service.dart';
 import 'package:target_sistemas_prova_flutter/common/utils/alert/app_alert.dart';
 import 'package:target_sistemas_prova_flutter/common/utils/global_services.dart';
 
-abstract class AppDialog {
-  void show({required Widget child, bool isDismissible});
+class AppDialog {
+  final BuildContext context;
+  AppDialog(this.context);
 
-  void showAlert({
-    BuildContext? context,
-    Color? titleColor,
-    required String message,
-    Color? messageColor,
-    TextAlign? textAlign = TextAlign.center,
-    AlertType? alertType = AlertType.ok,
-    Function()? dialogCallbackYES,
-    String textYesButton = 'Sim',
-    String textNoButton = 'Não',
-    Function()? dialogCallbackNO,
-    Function? closed,
-    bool barrierDismissible = true,
-  });
-}
-
-class AppDialogImpl implements AppDialog {
-  NavigatorService navigator;
-  AppDialogImpl(this.navigator);
-
-  @override
   void show({required Widget child, bool isDismissible = true}) {
     showDialog(
-      context: _context,
+      context: context,
       useSafeArea: true,
       barrierDismissible: isDismissible,
       barrierColor: Colors.grey.withOpacity(0.8),
@@ -45,14 +24,9 @@ class AppDialogImpl implements AppDialog {
     );
   }
 
-  BuildContext get _context {
-    return appNavigator.navigatorKey.currentContext!;
-  }
-
-  @override
   void showAlert(
       {String title = 'Target Sistemas',
-      BuildContext? context,
+      // BuildContext? context,
       Color? titleColor,
       required String message,
       Color? messageColor,
@@ -65,9 +39,9 @@ class AppDialogImpl implements AppDialog {
       Function? closed,
       bool barrierDismissible = true}) {
     try {
-      FocusScope.of(_context).unfocus();
+      FocusScope.of(context).unfocus();
       var alert = showDialog(
-        context: _context,
+        context: context,
         builder: (BuildContext x) => AppAlert(
           message: message,
           textAlign: textAlign,
