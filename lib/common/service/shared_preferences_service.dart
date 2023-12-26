@@ -9,12 +9,11 @@ class SharedPreferencesService<T> {
     SharedPreferences.getInstance().then((value) => _sharedPreferences = value);
   }
 
-  Future<Response> get(String key, {bool isList = false}) async {
+  Future<Response> get(String key) async {
     try {
-      final content = (isList ? await getList() : _sharedPreferences.get(key));
-      return Response(content, 200);
+      final content = _sharedPreferences.get(key);
+      return Response(jsonEncode(content), 200);
     } catch (error) {
-      // erro de não encontrado
       return Response(error.toString(), 404);
     }
   }
@@ -36,7 +35,7 @@ class SharedPreferencesService<T> {
     return Response('', 204);
   }
 
-  Future<Response> put(String key, object) async {
+  Future<Response> put(String key, T object) async {
     _sharedPreferences.setString(key, object.toString());
     return Response('', 204);
   }

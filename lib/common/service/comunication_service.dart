@@ -1,6 +1,13 @@
 import 'package:http/http.dart';
 
-enum AppHttpMethod { get, post, patch, put, delete }
+enum AppHttpMethod {
+  get,
+  post,
+  post_login, // feito apenas para o mock do login
+  patch,
+  put,
+  delete,
+}
 
 abstract class ComunicationService<T> {
   Future<Response> request(

@@ -16,16 +16,17 @@ class MockApiService<T> implements ComunicationService<T> {
     String uri,
     AppHttpMethod method, {
     T? object,
-    Map<String, String>? header,
+    Map<String, dynamic>? header,
   }) async {
     late Response response;
 
     response = switch (method) {
-      AppHttpMethod.get => await get(Uri.parse(uri)),
-      AppHttpMethod.post => await postMockLogin(uri, body: object!),
-      AppHttpMethod.put => await put(Uri.parse(uri), body: object),
-      AppHttpMethod.patch => await patch(Uri.parse(uri), headers: header),
-      AppHttpMethod.delete => await delete(Uri.parse(uri)),
+      AppHttpMethod.get => await sharedPreferences.get(uri),
+      AppHttpMethod.post => await sharedPreferences.post(uri, object),
+      AppHttpMethod.post_login => await postMockLogin(uri, body: object as T),
+      AppHttpMethod.put => await sharedPreferences.put(uri, object),
+      AppHttpMethod.patch => await sharedPreferences.patch(uri, header!),
+      AppHttpMethod.delete => await sharedPreferences.delete(uri),
     };
 
     if (response.statusCode.codeSucessfull) {

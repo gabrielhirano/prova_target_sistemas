@@ -10,8 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final FocusNode _focusNode;
-  late final TextEditingController _textController;
+  late FocusNode _focusNode;
+  late TextEditingController _textController;
 
   @override
   void initState() {

@@ -15,6 +15,7 @@ class ApiService<T> implements ComunicationService<T> {
     response = switch (method) {
       AppHttpMethod.get => await get(Uri.parse(uri)),
       AppHttpMethod.post => await post(Uri.parse(uri), body: object),
+      AppHttpMethod.post_login => await post(Uri.parse(uri), body: object),
       AppHttpMethod.put => await put(Uri.parse(uri), body: header),
       AppHttpMethod.patch => await patch(Uri.parse(uri), body: object),
       AppHttpMethod.delete => await delete(Uri.parse(uri)),
