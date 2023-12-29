@@ -121,12 +121,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onFieldSubmitted(String? text) {
-    if (text != null) {
-      _controller.registerText(text);
-      _controller.getTexts();
-
-      _textController.clear();
+    if (text == null || text.isEmpty) {
+      _appDialog.showAlert(message: 'Não é permito cadastrar mensagens vazias');
       _focusNode.requestFocus();
-    } else {}
+      return;
+    }
+
+    _controller.registerText(text);
+    _controller.getTexts();
+
+    _textController.clear();
+    _focusNode.requestFocus();
   }
 }
