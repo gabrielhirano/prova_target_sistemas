@@ -13,6 +13,7 @@ class InputFormApp extends StatefulWidget {
   final bool? autoFocus;
   final InputDecoration? inputDecoration;
   final List<TextInputFormatter>? inputFormatters;
+  final Function(String?)? onFieldSubmitted;
 
   const InputFormApp({
     Key? key,
@@ -25,6 +26,7 @@ class InputFormApp extends StatefulWidget {
     this.inputFormatters,
     this.inputDecoration,
     this.focusNode,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   @override
@@ -48,30 +50,29 @@ class _InputFormAppState extends State<InputFormApp> {
               )),
         ),
         const SizedBox(height: 4),
-        Container(
-          child: TextFormField(
-            focusNode: widget.focusNode,
-            inputFormatters: widget.inputFormatters,
-            obscureText: widget.obscureText == true,
-            controller: widget.controller,
-            validator: widget.validator,
-            style: const TextStyle(fontSize: 14),
-            decoration: widget.inputDecoration ??
-                InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
-                  border: const OutlineInputBorder(),
-                  prefixIcon: widget.prefixIcon,
-                  prefixIconColor: appColors.black,
-                  prefixIconConstraints:
-                      const BoxConstraints(maxWidth: 80, minWidth: 40),
-                  filled: true,
-                  fillColor: appColors.white,
-                  errorStyle: TextStyle(
-                    color: appColors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
+        TextFormField(
+          onFieldSubmitted: widget.onFieldSubmitted,
+          focusNode: widget.focusNode,
+          inputFormatters: widget.inputFormatters,
+          obscureText: widget.obscureText == true,
+          controller: widget.controller,
+          validator: widget.validator,
+          style: const TextStyle(fontSize: 14),
+          decoration: widget.inputDecoration ??
+              InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+                border: const OutlineInputBorder(),
+                prefixIcon: widget.prefixIcon,
+                prefixIconColor: appColors.black,
+                prefixIconConstraints:
+                    const BoxConstraints(maxWidth: 80, minWidth: 40),
+                filled: true,
+                fillColor: appColors.white,
+                errorStyle: TextStyle(
+                  color: appColors.white,
+                  fontWeight: FontWeight.w500,
                 ),
-          ),
+              ),
         ),
       ],
     );

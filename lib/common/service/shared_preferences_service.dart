@@ -1,24 +1,22 @@
 import 'dart:convert';
-import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService<T> {
   late SharedPreferences _sharedPreferences;
 
-  SharedPreferencesService() : super() {
-    SharedPreferences.getInstance().then((value) => _sharedPreferences = value);
+  SharedPreferencesService({SharedPreferences? shared}) {
+    _initSharedPreferences(shared);
   }
 
-  Future<Response> get(String key) async {
-    try {
-      final content = _sharedPreferences.get(key);
-      return Response(jsonEncode(content), 200);
-    } catch (error) {
-      return Response(error.toString(), 404);
-    }
+  Future<void> _initSharedPreferences(SharedPreferences? shared) async {
+    _sharedPreferences = shared ?? await SharedPreferences.getInstance();
   }
 
-  Future getList() async {
+  Future get(String key) async {
+    return _sharedPreferences.get(key);
+  }
+
+  Future<List> getList() async {
     var listObjects = _sharedPreferences.getKeys();
     var listJson = [];
 
@@ -26,32 +24,22 @@ class SharedPreferencesService<T> {
       listJson.add(jsonDecode(_sharedPreferences.getString(objectName)!));
     }
 
-    return jsonEncode(listJson);
+    return listJson;
   }
 
-  // post definido apenas para
-  Future<Response> post(String key, T object) async {
+  Future post(String key, T object) async {
     _sharedPreferences.setString(key, object.toString());
-    return Response('', 204);
   }
 
-  Future<Response> put(String key, T object) async {
+  Future put(String key, T object) async {
     _sharedPreferences.setString(key, object.toString());
-    return Response('', 204);
   }
 
-  Future<Response> patch(String key, Map<String, dynamic> partialUpdate) async {
-    var currentValue = _sharedPreferences.getString(key);
-    if (currentValue != null) {
-      var currentJson = jsonDecode(currentValue);
-      currentJson.addAll(partialUpdate);
-      _sharedPreferences.setString(key, jsonEncode(currentJson));
-    }
-    return Response('', 204);
+  Future patch(String key, T object) async {
+    _sharedPreferences.setString(key, object.toString());
   }
 
-  Future<Response> delete(String key) async {
+  Future delete(String key) async {
     _sharedPreferences.remove(key);
-    return Response('', 204);
   }
 }

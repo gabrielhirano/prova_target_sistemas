@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:target_sistemas_prova_flutter/common/utils/alert/app_alert.dart';
-import 'package:target_sistemas_prova_flutter/common/utils/global_services.dart';
 
 class AppDialog {
   final BuildContext context;

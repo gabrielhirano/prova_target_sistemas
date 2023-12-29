@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:target_sistemas_prova_flutter/common/components/input_form_app.dart';
 import 'package:target_sistemas_prova_flutter/feature/authentication/model/email_model.dart';
-import 'package:target_sistemas_prova_flutter/feature/authentication/model/password_model.dart';
 
 class EmailTextFieldWidget extends StatefulWidget {
   final TextEditingController controller;

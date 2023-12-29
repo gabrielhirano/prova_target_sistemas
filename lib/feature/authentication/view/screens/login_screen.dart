@@ -4,7 +4,7 @@ import 'package:target_sistemas_prova_flutter/common/components/button_app.dart'
 import 'package:target_sistemas_prova_flutter/common/config/dependency_injection.dart';
 import 'package:target_sistemas_prova_flutter/common/theme/theme_global.dart';
 import 'package:target_sistemas_prova_flutter/common/utils/alert/dialog_util.dart';
-import 'package:target_sistemas_prova_flutter/common/utils/enums/status_response_enum.dart';
+
 import 'package:target_sistemas_prova_flutter/common/utils/global_services.dart';
 import 'package:target_sistemas_prova_flutter/feature/authentication/controller/login_controller.dart';
 import 'package:target_sistemas_prova_flutter/feature/authentication/view/widgets/email_text_field_widget.dart';
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      if (_controller.status.isAwaiting) {
+      if (_controller.dataManager.isAwaiting) {
         return const CircularProgressIndicator();
       }
 
@@ -89,12 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text,
       );
 
-      if (_controller.status.hasSucessfull) {
+      if (_controller.dataManager.hasSucessfull) {
         appNavigator.navigate(const HomeScreen());
       }
 
-      if (_controller.status.hasFailed) {
-        _appDialog.showAlert(message: _controller.errorMessage);
+      if (_controller.dataManager.hasFailed) {
+        _appDialog.showAlert(message: _controller.dataManager.getMessageError);
       }
     }
   }

@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
+import 'package:target_sistemas_prova_flutter/common/service/api_data_manager/api_data_manager.dart';
 import 'package:target_sistemas_prova_flutter/common/service/app_exceptions.dart';
-import 'package:target_sistemas_prova_flutter/common/utils/enums/status_response_enum.dart';
 import 'package:target_sistemas_prova_flutter/feature/authentication/model/user_model.dart';
 import 'package:target_sistemas_prova_flutter/feature/authentication/repository/login_repository.dart';
 part 'login_controller.g.dart';
@@ -12,26 +12,22 @@ abstract class _LoginControllerBase with Store {
   _LoginControllerBase(this.repository);
 
   @observable
-  StatusResponse status = StatusResponse.idle;
-
-  @observable
-  String errorMessage = '';
+  ApiDataManager<String> dataManager = ApiDataManager<String>();
 
   @action
   Future<void> authentication(
       {required String email, required String password}) async {
-    status = StatusResponse.awaiting;
+    dataManager.setStatus(ApiDataEnum.awaiting);
 
     try {
       final token =
           await repository.authenticationLogin(UserModel(email, password));
-      status = StatusResponse.sucess;
+
+      dataManager.setStatus(ApiDataEnum.sucess, data: token);
     } catch (error) {
       final customException = error as CustomException;
 
-      errorMessage = customException.message;
-
-      status = StatusResponse.failed;
+      dataManager.setStatus(ApiDataEnum.error, error: customException);
     }
   }
 }

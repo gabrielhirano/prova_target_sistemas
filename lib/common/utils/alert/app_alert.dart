@@ -120,7 +120,7 @@ class AppAlert extends StatelessWidget {
             child: Text(
               textYesButton,
               style: TextStyle(
-                  color: appColors.green,
+                  color: appColors.black,
                   fontSize: 17,
                   fontWeight: FontWeight.normal),
             ),
@@ -147,7 +147,7 @@ class AppAlert extends StatelessWidget {
             child: Text(
               textNoButton,
               style: TextStyle(
-                  color: appColors.green,
+                  color: appColors.red,
                   fontSize: 17,
                   fontWeight: FontWeight.normal),
             ),
