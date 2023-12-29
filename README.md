@@ -12,9 +12,9 @@ A autenticação é gerenciada pelo controlador MobX auth_controller.dart. A tel
 ### Fluxo de Autenticação
 A tela de login se comunica com o controlador auth_controller.dart, que, por sua vez, interage com serviços de autenticação. O uso de MobX facilita a reatividade e atualizações instantâneas na interface do usuário em resposta às mudanças de estado.
 
-- Os dados de login estão mockados
-email = 'target@sistemas.com'
-password = 'target123
+-> Os dados de login estão mockados
+* email = 'target@sistemas.com'
+* password = 'target123'
 
 ## Tela principal / Home
 Possui as validações solicitadas
