@@ -22,7 +22,7 @@ class _EmailTextFieldWidgetState extends State<EmailTextFieldWidget> {
   }
 
   String? _validatePassword(String? value) {
-    final passwordModel = EmailModel(value ?? '');
-    return passwordModel.validate();
+    final emailModel = EmailModel(value ?? '');
+    return emailModel.validate();
   }
 }

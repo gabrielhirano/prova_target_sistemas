@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:target_sistemas_prova_flutter/common/components/background_gradient_app.dart';
+import 'package:target_sistemas_prova_flutter/common/theme/theme_global.dart';
 import 'package:target_sistemas_prova_flutter/common/utils/alert/app_alert.dart';
 import 'package:target_sistemas_prova_flutter/common/utils/alert/dialog_util.dart';
 import 'package:target_sistemas_prova_flutter/common/utils/global_services.dart';
@@ -128,6 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     _controller.registerText(text);
+    _updateScreen();
+  }
+
+  void _updateScreen() {
     _controller.getTexts();
 
     _textController.clear();

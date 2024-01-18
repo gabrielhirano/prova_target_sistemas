@@ -40,7 +40,7 @@ abstract class _HomeControllerBase with Store {
 
   @action
   updateText(TextModel textModel, String text) {
-    repository.registerText(TextModel(key: textModel.key, description: text));
+    repository.updateText(TextModel(key: textModel.key, description: text));
   }
 
   @action

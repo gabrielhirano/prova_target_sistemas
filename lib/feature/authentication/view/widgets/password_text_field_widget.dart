@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:target_sistemas_prova_flutter/common/components/input_form_app.dart';
+import 'package:target_sistemas_prova_flutter/common/utils/validators/input_validator.dart';
 import 'package:target_sistemas_prova_flutter/feature/authentication/model/password_model.dart';
 
 class PasswordTextFieldWidget extends StatefulWidget {
@@ -31,6 +32,7 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
 
   String? _validatePassword(String? value) {
     final passwordModel = PasswordModel(value ?? '');
+
     return passwordModel.validate();
   }
 }
